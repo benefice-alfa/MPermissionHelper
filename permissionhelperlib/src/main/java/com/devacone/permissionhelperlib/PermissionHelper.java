@@ -26,24 +26,23 @@ public class PermissionHelper {
 
     private AlertDialog dialog;
 
-    private boolean isDestroyed = false;
-
     private final List<String> permissionsList = new ArrayList<>();
 
     public PermissionHelper(AppCompatActivity context) {
         this.context = context;
     }
-
+    //call this method to request all permissions
     public void RequestAllPermission() {
 
 //         start permission request for android M
         List<String> permissionsNeeded = new ArrayList<>();
-
+        // get list permission from manifest
         try {
             PackageInfo info = context.getPackageManager().
                     getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
             if (info.requestedPermissions != null) {
                 for (String p : info.requestedPermissions) {
+                    // add permission if the permission is not granted yet
                     if (!addPermission(permissionsList, p)) {
                         permissionsNeeded.add(p.substring(p.lastIndexOf(".") + 1));
                     }
@@ -55,7 +54,7 @@ public class PermissionHelper {
 
         if (permissionsList.size() > 0) {
             if (permissionsNeeded.size() > 0) {
-                // Need Rationale
+                // build permission dialog if user check never ask again option
                 String message = "You have to allow permission to " + permissionsNeeded.get(0);
                 for (int i = 1; i < permissionsNeeded.size(); i++)
                     message = message + ", " + permissionsNeeded.get(i);
