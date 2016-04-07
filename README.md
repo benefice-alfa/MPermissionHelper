@@ -9,7 +9,9 @@ find the permission which not granted yet, and ask to user runtime.
 Usage :
 
 create the helper class and pass the activity as parameter and request all permission like so:
-`PermissionHelper permissionHelper = new PermissionHelper(this);`
+```
+PermissionHelper permissionHelper = new PermissionHelper(this);
+```
 
 handle onRequestPermissionsResult on that activity:
 ```
